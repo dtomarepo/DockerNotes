@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: default
+    ports:
+      - 5432:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  db:
+    driver: local
+# create network but control name
+networks:
+  default:
+    name: dbNetwork
+    driver: bridge
+# Use predefined network
+# networks:
+#   default:
+#     external:
+#       name: my-pre-existing-network

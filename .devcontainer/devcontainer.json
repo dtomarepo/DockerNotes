@@ -8,6 +8,18 @@
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 		"dockerfile": "../dockerfile"
 	},
+	"runArgs": [
+		// network from docker compose, assuming it's running.
+		// ensure connection: psql -h docker-db-1 -p 5432 -d default -U admin
+		"--network=dbNetwork",
+		"--name", "${localEnv:USER}_devcontainer"
+	],
+	// If you add the image or dockerFile properties to devcontainer.json, 
+	// VS Code will automatically "bind" mount your current workspace folder into the container.
+	// You can use the workspaceMount property in devcontainer.json to change the automatic mounting behavior. 
+	// It expects the same value as the Docker CLI --mount flag.
+	// "workspaceMount": "source=${localWorkspaceFolder}/sub-folder,target=/workspace,type=bind",
+	// "workspaceFolder": "/workspace",
 
 	// for browser and debugger.
 	"appPort": [ "80:80", "5678:5678" ],
@@ -37,5 +49,5 @@
 		}
 	},
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "devcontainer"
+	"remoteUser": "dev"
 }
